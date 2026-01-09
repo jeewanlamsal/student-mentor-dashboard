@@ -14,6 +14,7 @@ import {
   AlertTriangle,
   Settings,
   LogOut,
+  Menu,
   
   X,
 } from "lucide-react";
@@ -445,6 +446,11 @@ const MentorDashboard = () => {
 
       <div className="flex-1 flex flex-col my-5">
         <header className=" flex items-center px-4 py-3 bg-white border-b border-gray-200 ">
+          <button
+           onClick={()=>setIsSidebarOpen(true)}
+          className="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+            <Menu size={24}/>
+          </button>
             <div className="flex-1"></div>
             <div className="flex-1 text-center">
                 <h1 className="text-lg font-semibold text-gray-900">Mentor Dashboard</h1>
