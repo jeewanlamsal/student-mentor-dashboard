@@ -22,6 +22,8 @@ import Messages from "./messages/Messages";
 import Warnings from "./warnings/Warnings";
 import Notifications from "./notifications/Notifications";
 import AddStudent from "../mentor/student/AddStudent";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 type Mentor = {
@@ -68,6 +70,16 @@ const Sidebar = ({
     onNavigate(path);
     onClose();
   };
+  const { logout } = useAuth();
+const navigate = useNavigate();
+
+const handleLogout = () => {
+  logout();               // clears auth + localStorage
+  navigate("/login", {    // redirect to login
+    replace: true,
+  });
+};
+
 
   return (
     <>
@@ -141,11 +153,13 @@ const Sidebar = ({
         </nav>
 
         <div className="p-4 border-t border-gray-200 space-y-2">
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+          >
             <Settings size={20} />
             <span>Settings</span>
           </button>
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors">
+          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
+          onClick={handleLogout}>
             <LogOut size={20} />
             <span>Sign Out</span>
           </button>
@@ -203,6 +217,8 @@ const MentorDashboard = () => {
 
   const selectedStudentData = selectedStudent || students[0];
   const handleStudentClick = (student: Student) => setSelectedStudent(student);
+
+  
 
   const renderPageContent = () => {
     switch (currentPage) {

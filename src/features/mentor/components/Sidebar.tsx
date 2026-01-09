@@ -8,6 +8,8 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
+import { useAuth } from "../../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 // ---------------- Types ----------------
 export type Mentor = {
@@ -42,6 +44,14 @@ const Sidebar: FC<SidebarProps> = ({ mentor, currentPage, onNavigate }) => {
   ];
 
   const isActive = (path: MenuItem["path"]) => currentPage === path;
+  const {logout}= useAuth();
+  const navigate =useNavigate();
+  const handleLogout=()=>{
+    logout();
+    navigate("/login", {
+      replace: true,
+    });
+  };
 
   return (
     <div className="w-64 bg-white border-r border-gray-200 h-screen flex flex-col">
@@ -100,9 +110,10 @@ const Sidebar: FC<SidebarProps> = ({ mentor, currentPage, onNavigate }) => {
           <Settings size={20} />
           <span>Settings</span>
         </button>
-        <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors">
+        <button className="w-full flex items-center gap-3 px-4 py-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
+        onClick={handleLogout}>
           <LogOut size={20} />
-          <span>Sign Out</span>
+          SignOut
         </button>
       </div>
     </div>

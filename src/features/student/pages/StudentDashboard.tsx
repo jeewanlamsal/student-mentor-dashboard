@@ -3,6 +3,9 @@ import { Code, Link2, Lock, ChevronRight, Bookmark, HelpCircle, FileText, Extern
 import ProgressIndicator from './ProgressIndicator';
 import  Warnings  from '../pages/Warnings';
 import Notifications from './Notifications';
+import { useAuth } from '../../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const CourseModulePage: React.FC = () => {
   const [selectedTask, setSelectedTask] = useState<number>(1);
@@ -22,6 +25,14 @@ const CourseModulePage: React.FC = () => {
       console.log('Task clicked:', taskId);
     }
   };
+  const {logout}= useAuth();
+const navigate =useNavigate();
+const handleLogout=()=>{
+  logout();
+  navigate("/login", {
+    replace: true,
+  });
+};
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -146,7 +157,8 @@ const CourseModulePage: React.FC = () => {
 
         {/* Logout */}
         <div className="p-6 border-t border-gray-200">
-          <button className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+          <button className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+          onClick={handleLogout}>
             <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd"/>
             </svg>
